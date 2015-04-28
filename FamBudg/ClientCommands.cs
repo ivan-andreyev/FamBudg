@@ -24,7 +24,7 @@ namespace FamBudg
             //Initialize mysql connection
 
             MySqlConnection connection = new MySqlConnection(connectionString);
-            
+
             /* REQUEST */
             string CommandText = "INSERT INTO costs (summ, category_id, comment) VALUES (@sum, @cat, @comment)";
 
@@ -44,7 +44,8 @@ namespace FamBudg
 
         public static bool addIncome(double sum, int category_id, string comment, string some_request = "") // добавить расход
         {
-            /* ВЫЗОВ ХРАНИМОЙ ПРОЦЕДУРЫ */
+            /* будет ВЫЗОВ ХРАНИМОЙ ПРОЦЕДУРЫ */
+            /* а пока, выполнение запроса */
             //Initialize mysql connection
 
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -69,7 +70,18 @@ namespace FamBudg
             void refreshCosts()
             {
                 MySqlConnection connection = new MySqlConnection(connectionString);
+                /* REQUEST */
+                string CommandText = "SELECT * FROM costs";
 
+                MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
+                connection.Open(); //Устанавливаем соединение с базой данных.
+                selCommand.ExecuteReader();
+                MySql.Data.MySqlClient.MySqlDataReader reader = selCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    //string = reader[0];
+                }
+                connection.Close(); //Обязательно закрываем соединение!
             }
 
             void refreshIncomes()
