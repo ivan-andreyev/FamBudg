@@ -66,6 +66,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.testcTableAdapter = new FamBudg.fambudgetDataSetTableAdapters.testcTableAdapter();
+            this.fambudgetDataSet1 = new FamBudg.fambudgetDataSet();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.consumption.SuspendLayout();
@@ -75,6 +76,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fambudgetDataSet)).BeginInit();
             this.income.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fambudgetDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -93,20 +95,20 @@
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.настройкиToolStripMenuItem.Text = "Настройки";
             // 
             // tabControl1
@@ -118,6 +120,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(867, 261);
             this.tabControl1.TabIndex = 9;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // consumption
             // 
@@ -249,6 +252,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(275, 60);
             this.textBox2.TabIndex = 10;
+            this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
             // 
             // textBox1
             // 
@@ -256,6 +260,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(102, 20);
             this.textBox1.TabIndex = 9;
+            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             // 
             // comboBox1
             // 
@@ -264,6 +269,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(156, 21);
             this.comboBox1.TabIndex = 8;
+            this.comboBox1.Enter += new System.EventHandler(this.comboBox1_Enter);
             // 
             // income
             // 
@@ -379,6 +385,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(275, 60);
             this.textBox3.TabIndex = 18;
+            this.textBox3.Enter += new System.EventHandler(this.textBox3_Enter);
             // 
             // textBox4
             // 
@@ -386,6 +393,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(102, 20);
             this.textBox4.TabIndex = 17;
+            this.textBox4.Enter += new System.EventHandler(this.textBox4_Enter);
             // 
             // comboBox2
             // 
@@ -394,10 +402,17 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(156, 21);
             this.comboBox2.TabIndex = 16;
+            this.comboBox2.Enter += new System.EventHandler(this.comboBox2_Enter);
             // 
             // testcTableAdapter
             // 
             this.testcTableAdapter.ClearBeforeFill = true;
+            // 
+            // fambudgetDataSet1
+            // 
+            this.fambudgetDataSet1.DataSetName = "fambudgetDataSet";
+            this.fambudgetDataSet1.Locale = new System.Globalization.CultureInfo("ru-RU");
+            this.fambudgetDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // FamilyBudget
             // 
@@ -409,6 +424,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FamilyBudget";
             this.Text = "FamilyBudget";
+            this.Activated += new System.EventHandler(this.FamilyBudget_Activated);
             this.Load += new System.EventHandler(this.FamilyBudget_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -422,6 +438,7 @@
             this.income.ResumeLayout(false);
             this.income.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fambudgetDataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -466,6 +483,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn summDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryidDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn1;
+        private fambudgetDataSet fambudgetDataSet1;
     }
 }
 

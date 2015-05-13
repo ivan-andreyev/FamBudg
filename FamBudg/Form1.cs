@@ -12,6 +12,8 @@ namespace FamBudg
 {
     public partial class FamilyBudget : Form
     {
+        private BindingSource bs1 = new BindingSource();
+        private BindingSource bs2 = new BindingSource();
         public bool inc = false;
         public bool isAuthorised = ClientCommands.sendRequest("isAuthorised");
         public FamilyBudget()
@@ -29,7 +31,7 @@ namespace FamBudg
         private void FamilyBudget_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'fambudgetDataSet.testc' table. You can move, or remove it, as needed.
-            refreshGrids();
+            refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
 
         }
 
@@ -38,7 +40,11 @@ namespace FamBudg
             double sum = Convert.ToDouble(textBox1.Text);
             int cat = Convert.ToInt32(comboBox1.Text);
             string comment = textBox2.Text;
-            if (checkInputs(false)) ClientCommands.addСonsumption(sum, cat, comment); // добавить расход
+            if (checkInputs(false))
+            {
+                ClientCommands.addСonsumption(sum, cat, comment); // добавить расход
+                refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
+            }
             else MessageBox.Show("Ошибка входных данных"); // добавить доход
         }
 
@@ -47,7 +53,11 @@ namespace FamBudg
             double sum = Convert.ToDouble(textBox4.Text);
             int cat = Convert.ToInt32(comboBox2.Text);
             string comment = textBox3.Text;
-            if (checkInputs(true)) ClientCommands.addIncome(sum, cat, comment); 
+            if (checkInputs(true))
+            {
+                ClientCommands.addIncome(sum, cat, comment);
+                refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
+            }
             else MessageBox.Show("Ошибка входных данных"); // добавить доход
         }
 
@@ -91,16 +101,73 @@ namespace FamBudg
         }
 
 
-        void refreshGrids()
+        void refreshGrids(int n)
         {
-            //refreshCosts();
-            //refreshIncomes();
-            //dataGridView1.DataSource;
+            MessageBox.Show(n.ToString());
+            switch (n)
+            {
+                case 0:
+                    
+                    bs1 = ClientCommands.refreshCosts();
+                    dataGridView1.DataSource = bs1.DataSource;
+                    break;
+                case 1:
+                    bs2 = ClientCommands.refreshIncomes();
+                    dataGridView2.DataSource = bs2.DataSource;
+                    break;
+                default:
+                    bs1 = ClientCommands.refreshCosts();
+                    dataGridView1.DataSource = bs1.DataSource;
+                    bs2 = ClientCommands.refreshIncomes();
+                    dataGridView2.DataSource = bs2.DataSource;
+                    break;
+            }
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void FamilyBudget_Activated(object sender, EventArgs e)
+        {
+            //refreshGrids(tabControl1.TabIndex);
+            //dataGridView1
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            textBox1.SelectAll();
+        }
+
+        private void textBox2_Enter(object sender, EventArgs e)
+        {
+            textBox2.SelectAll();
+        }
+
+        private void comboBox1_Enter(object sender, EventArgs e)
+        {
+            comboBox1.SelectAll();
+        }
+
+        private void textBox4_Enter(object sender, EventArgs e)
+        {
+            textBox4.SelectAll();
+        }
+
+        private void comboBox2_Enter(object sender, EventArgs e)
+        {
+            comboBox2.SelectAll();
+        }
+
+        private void textBox3_Enter(object sender, EventArgs e)
+        {
+            textBox3.SelectAll();
         }
     }
 }

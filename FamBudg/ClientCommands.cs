@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace FamBudg
 {
     class ClientCommands
     {
-        public static string connectionString = "Server=mysql87.1gb.ru;Database=gb_fam_budget;Uid=gb_fam_budget; Pwd=c122ac54nm;";
+        public static string connectionString = "Server=mysql87.1gb.ru;Database=gb_fam_budget;Uid=gb_fam_budget; Pwd=c122ac54nm;Convert Zero Datetime=True";
         public static bool sendRequest(string some_request = "") // послать запрос
         {
             /*donothing*/
@@ -67,7 +68,7 @@ namespace FamBudg
             return false;
         }
 
-            void refreshCosts()
+        public static BindingSource refreshCosts()
             {
                 MySqlConnection connection = new MySqlConnection(connectionString);
                 /* REQUEST */
@@ -75,19 +76,33 @@ namespace FamBudg
 
                 MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
                 connection.Open(); //Устанавливаем соединение с базой данных.
-                selCommand.ExecuteReader();
-                MySql.Data.MySqlClient.MySqlDataReader reader = selCommand.ExecuteReader();
-                while (reader.Read())
-                {
-                    //string = reader[0];
-                }
-                connection.Close(); //Обязательно закрываем соединение!
+                //MySql.Data.MySqlClient.MySqlDataReader reader = selCommand.ExecuteReader();
+                System.Data.DataTable tab = new System.Data.DataTable();
+                tab.Load(selCommand.ExecuteReader());
+                BindingSource bs = new BindingSource();
+                bs.DataSource = tab.DefaultView;
+
+                connection.Close();
+                return bs;
             }
 
-            void refreshIncomes()
+
+            public static BindingSource refreshIncomes()
             {
                 MySqlConnection connection = new MySqlConnection(connectionString);
+                /* REQUEST */
+                string CommandText = "SELECT * FROM income";
 
+                MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
+                connection.Open(); //Устанавливаем соединение с базой данных.
+                //MySql.Data.MySqlClient.MySqlDataReader reader = selCommand.ExecuteReader();
+                System.Data.DataTable tab = new System.Data.DataTable();
+                tab.Load(selCommand.ExecuteReader());
+                BindingSource bs = new BindingSource();
+                bs.DataSource = tab.DefaultView;
+
+                connection.Close();
+                return bs;
             }
     }
 }
