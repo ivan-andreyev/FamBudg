@@ -17,8 +17,13 @@ namespace FamBudg
 
         private BindingSource bs1 = new BindingSource();
         private BindingSource bs2 = new BindingSource();
+        public BindingSource bs3 = new BindingSource();
+
         public bool inc = false;
+
+        // проверка на авторизованность в программе
         public bool isAuthorised = ClientCommands.sendRequest("isAuthorised");
+        
         public FamilyBudget()
         {
             InitializeComponent();
@@ -33,9 +38,9 @@ namespace FamBudg
 
         private void FamilyBudget_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'fambudgetDataSet.testc' table. You can move, or remove it, as needed.
+            // обновление таблицы на текущей вкладке
             refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
-
+            refreshCategories();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,20 +61,20 @@ namespace FamBudg
             double sum = Convert.ToDouble(textBox4.Text);
             int cat = Convert.ToInt32(comboBox2.Text);
             string comment = textBox3.Text;
-            if (checkInputs(INCOME_QUERY_TYPE))
+            if (checkInputs(INCOME_QUERY_TYPE)) // если входные данные корректны
             {
-                ClientCommands.addIncome(sum, cat, comment);
-                refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
+                ClientCommands.addIncome(sum, cat, comment); // выполнить запрос
+                refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab)); // и обновить таблицу
             }
             else MessageBox.Show("Ошибка входных данных"); // добавить доход
         }
 
         public bool checkInputs(string inc) // проверка правильности ввода
         {
-            double d = new double();
-            int i = new int();
-            string s = "";
-            bool isGood = true;
+            double d = new double(); // образец типа double
+            int i = new int(); // образец типа int
+            string s = ""; // образец типа string
+            bool isGood = true; // возвращаемая переменная, флаг корректности
             switch (inc)
             {
                 case "income":
@@ -134,6 +139,13 @@ namespace FamBudg
             }
         }
 
+        public void refreshCategories()
+        {
+            bs3 = ClientCommands.refreshCategories();
+            comboBox1.DataSource = comboBox2.DataSource = bs3.DataSource;
+            comboBox1.DisplayMember = comboBox2.DisplayMember = "name";
+        }
+
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -150,6 +162,7 @@ namespace FamBudg
             refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
         }
 
+        // автовыделение при фокусе инпутов
         private void textBox1_Enter(object sender, EventArgs e)
         {
             textBox1.SelectAll();
@@ -182,13 +195,14 @@ namespace FamBudg
 
         private void FamilyBudget_ResizeEnd(object sender, EventArgs e)
         {
-            //this.Size.Width
+            // при изменении размеров формы, масштабируем dataGridView
             dataGridView1.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
             dataGridView2.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
         }
 
         private void FamilyBudget_Paint(object sender, PaintEventArgs e)
         {
+            // при отрисовке формы, масштабируем dataGridView
             label7.Text = "Form Width: " + this.Size.Width.ToString() + " DataGrid Width: " + dataGridView1.Width.ToString();
             dataGridView1.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
             dataGridView2.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
@@ -197,6 +211,9 @@ namespace FamBudg
         private void button3_Click(object sender, EventArgs e)
         {
             // edit categories;
+            CategoriesEdit f = new CategoriesEdit();
+            f.ShowDialog();
+            refreshCategories();
         }
     }
 }

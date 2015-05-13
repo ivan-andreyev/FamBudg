@@ -226,6 +226,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DataSource = this.testcBindingSource;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(114, 19);
             this.comboBox1.Name = "comboBox1";

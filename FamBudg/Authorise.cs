@@ -46,6 +46,9 @@ namespace FamBudg
         {
             /* открыть форму регистрации */
             /*  */
+            RegistrationForm f = new RegistrationForm();
+            f.ShowDialog();
+
         }
     }
 }

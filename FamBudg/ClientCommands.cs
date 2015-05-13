@@ -15,7 +15,7 @@ namespace FamBudg
         public static bool sendRequest(string some_request = "") // послать запрос
         {
             /*donothing*/
-            //Thread.Sleep(1000);
+            //Thread.Sleep(50);
             return false;
         }
 
@@ -39,7 +39,7 @@ namespace FamBudg
             connection.Close(); //Обязательно закрываем соединение!
 
             /*donothing*/
-            Thread.Sleep(1000);
+            Thread.Sleep(50);
             return false;
         }
 
@@ -64,7 +64,31 @@ namespace FamBudg
             connection.Close(); //Обязательно закрываем соединение!
 
             /*donothing*/
-            Thread.Sleep(1000);
+            Thread.Sleep(50);
+            return false;
+        }
+
+        public static bool addCategory(string name, string descr, string some_request = "") // добавить расход
+        {
+            /* будет ВЫЗОВ ХРАНИМОЙ ПРОЦЕДУРЫ */
+            /* а пока, выполнение запроса */
+            //Initialize mysql connection
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+
+            /* REQUEST */
+            string CommandText = "INSERT INTO categories (name, descr) VALUES (@name, @descr)";
+
+            MySqlCommand insCommand = new MySqlCommand(CommandText, connection);
+            connection.Open(); //Устанавливаем соединение с базой данных.
+            insCommand.Parameters.AddWithValue("@name", name);
+            insCommand.Parameters.AddWithValue("@descr", descr);
+            insCommand.ExecuteNonQuery();
+
+            connection.Close(); //Обязательно закрываем соединение!
+
+            /*donothing*/
+            Thread.Sleep(50);
             return false;
         }
 
@@ -104,5 +128,24 @@ namespace FamBudg
                 connection.Close();
                 return bs;
             }
+
+        public static BindingSource refreshCategories()
+            {
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                /* REQUEST */
+                string CommandText = "SELECT * FROM categories";
+
+                MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
+                connection.Open(); //Устанавливаем соединение с базой данных.
+                //MySql.Data.MySqlClient.MySqlDataReader reader = selCommand.ExecuteReader();
+                System.Data.DataTable tab = new System.Data.DataTable();
+                tab.Load(selCommand.ExecuteReader());
+                BindingSource bs = new BindingSource();
+                bs.DataSource = tab.DefaultView;
+
+                connection.Close();
+                return bs;
+            }
+        
     }
 }
