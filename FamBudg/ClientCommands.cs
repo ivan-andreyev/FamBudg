@@ -19,7 +19,7 @@ namespace FamBudg
             return false;
         }
 
-        public static bool addСonsumption(double sum, int category_id, string comment, string some_request = "") // добавить расход
+        public static bool addСonsumption(double sum, string category_id, string comment, string some_request = "") // добавить расход
         {
             /* ВЫЗОВ ХРАНИМОЙ ПРОЦЕДУРЫ */
             //Initialize mysql connection
@@ -34,16 +34,25 @@ namespace FamBudg
             insCommand.Parameters.AddWithValue("@sum", sum);
             insCommand.Parameters.AddWithValue("@cat", category_id);
             insCommand.Parameters.AddWithValue("@comment", comment);
-            insCommand.ExecuteNonQuery();
-
-            connection.Close(); //Обязательно закрываем соединение!
-
+            try
+            {
+                insCommand.ExecuteNonQuery();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                    connection.Close(); //Обязательно закрываем соединение!
+            }
             /*donothing*/
             Thread.Sleep(50);
             return false;
         }
 
-        public static bool addIncome(double sum, int category_id, string comment, string some_request = "") // добавить расход
+        public static bool addIncome(double sum, string category_id, string comment, string some_request = "") // добавить расход
         {
             /* будет ВЫЗОВ ХРАНИМОЙ ПРОЦЕДУРЫ */
             /* а пока, выполнение запроса */
@@ -59,10 +68,19 @@ namespace FamBudg
             insCommand.Parameters.AddWithValue("@sum", sum);
             insCommand.Parameters.AddWithValue("@cat", category_id);
             insCommand.Parameters.AddWithValue("@comment", comment);
-            insCommand.ExecuteNonQuery();
-
-            connection.Close(); //Обязательно закрываем соединение!
-
+            try
+            {
+                insCommand.ExecuteNonQuery();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                    connection.Close(); //Обязательно закрываем соединение!
+            }
             /*donothing*/
             Thread.Sleep(50);
             return false;
@@ -83,10 +101,24 @@ namespace FamBudg
             connection.Open(); //Устанавливаем соединение с базой данных.
             insCommand.Parameters.AddWithValue("@name", name);
             insCommand.Parameters.AddWithValue("@descr", descr);
-            insCommand.ExecuteNonQuery();
-
-            connection.Close(); //Обязательно закрываем соединение!
-
+            try
+            {
+                insCommand.ExecuteNonQuery();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                MessageBox.Show("Используйте уникальное имя категории."); // <- удобно
+                /*throw new System.Exception(
+                     "Используйте уникальное имя категории.");*/ // <- правильно
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    MessageBox.Show("Закрываем открытое соединение");
+                    connection.Close(); //Обязательно закрываем соединение!
+                }
+            }
             /*donothing*/
             Thread.Sleep(50);
             return false;

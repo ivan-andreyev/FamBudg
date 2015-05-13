@@ -46,7 +46,7 @@ namespace FamBudg
         private void button1_Click(object sender, EventArgs e)
         {
             double sum = Convert.ToDouble(textBox1.Text);
-            int cat = Convert.ToInt32(comboBox1.Text);
+            string cat = comboBox1.Text;
             string comment = textBox2.Text;
             if (checkInputs(CONSUMPTION_QUERY_TYPE))
             {
@@ -59,7 +59,7 @@ namespace FamBudg
         private void button2_Click(object sender, EventArgs e)
         {
             double sum = Convert.ToDouble(textBox4.Text);
-            int cat = Convert.ToInt32(comboBox2.Text);
+            string cat = comboBox2.Text;
             string comment = textBox3.Text;
             if (checkInputs(INCOME_QUERY_TYPE)) // если входные данные корректны
             {
