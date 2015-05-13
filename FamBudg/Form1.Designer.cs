@@ -37,11 +37,6 @@
             this.consumption = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.summDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryidDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commentDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.testcBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fambudgetDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.fambudgetDataSet = new FamBudg.fambudgetDataSet();
@@ -67,6 +62,8 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.testcTableAdapter = new FamBudg.fambudgetDataSetTableAdapters.testcTableAdapter();
             this.fambudgetDataSet1 = new FamBudg.fambudgetDataSet();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.consumption.SuspendLayout();
@@ -86,7 +83,7 @@
             this.настройкиToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(879, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(889, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -115,15 +112,18 @@
             // 
             this.tabControl1.Controls.Add(this.consumption);
             this.tabControl1.Controls.Add(this.income);
-            this.tabControl1.Location = new System.Drawing.Point(12, 27);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(867, 261);
+            this.tabControl1.Size = new System.Drawing.Size(889, 276);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // consumption
             // 
+            this.consumption.Controls.Add(this.button3);
+            this.consumption.Controls.Add(this.label7);
             this.consumption.Controls.Add(this.button1);
             this.consumption.Controls.Add(this.dataGridView1);
             this.consumption.Controls.Add(this.label3);
@@ -135,7 +135,7 @@
             this.consumption.Location = new System.Drawing.Point(4, 22);
             this.consumption.Name = "consumption";
             this.consumption.Padding = new System.Windows.Forms.Padding(3);
-            this.consumption.Size = new System.Drawing.Size(859, 235);
+            this.consumption.Size = new System.Drawing.Size(881, 250);
             this.consumption.TabIndex = 0;
             this.consumption.Text = "Расход";
             this.consumption.UseVisualStyleBackColor = true;
@@ -152,55 +152,17 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn1,
-            this.dateDataGridViewTextBoxColumn1,
-            this.summDataGridViewTextBoxColumn1,
-            this.categoryidDataGridViewTextBoxColumn1,
-            this.commentDataGridViewTextBoxColumn1});
-            this.dataGridView1.DataSource = this.testcBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(287, 0);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dataGridView1.Location = new System.Drawing.Point(302, 3);
+            this.dataGridView1.MinimumSize = new System.Drawing.Size(543, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(576, 232);
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.Size = new System.Drawing.Size(576, 244);
             this.dataGridView1.TabIndex = 14;
-            // 
-            // idDataGridViewTextBoxColumn1
-            // 
-            this.idDataGridViewTextBoxColumn1.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn1.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-            this.idDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dateDataGridViewTextBoxColumn1
-            // 
-            this.dateDataGridViewTextBoxColumn1.DataPropertyName = "date";
-            this.dateDataGridViewTextBoxColumn1.HeaderText = "date";
-            this.dateDataGridViewTextBoxColumn1.Name = "dateDataGridViewTextBoxColumn1";
-            this.dateDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // summDataGridViewTextBoxColumn1
-            // 
-            this.summDataGridViewTextBoxColumn1.DataPropertyName = "summ";
-            this.summDataGridViewTextBoxColumn1.HeaderText = "summ";
-            this.summDataGridViewTextBoxColumn1.Name = "summDataGridViewTextBoxColumn1";
-            this.summDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // categoryidDataGridViewTextBoxColumn1
-            // 
-            this.categoryidDataGridViewTextBoxColumn1.DataPropertyName = "category_id";
-            this.categoryidDataGridViewTextBoxColumn1.HeaderText = "category_id";
-            this.categoryidDataGridViewTextBoxColumn1.Name = "categoryidDataGridViewTextBoxColumn1";
-            this.categoryidDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // commentDataGridViewTextBoxColumn1
-            // 
-            this.commentDataGridViewTextBoxColumn1.DataPropertyName = "comment";
-            this.commentDataGridViewTextBoxColumn1.HeaderText = "comment";
-            this.commentDataGridViewTextBoxColumn1.Name = "commentDataGridViewTextBoxColumn1";
-            this.commentDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // testcBindingSource
             // 
@@ -284,7 +246,7 @@
             this.income.Location = new System.Drawing.Point(4, 22);
             this.income.Name = "income";
             this.income.Padding = new System.Windows.Forms.Padding(3);
-            this.income.Size = new System.Drawing.Size(859, 235);
+            this.income.Size = new System.Drawing.Size(881, 250);
             this.income.TabIndex = 1;
             this.income.Text = "Доход";
             this.income.UseVisualStyleBackColor = true;
@@ -301,6 +263,8 @@
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.AutoGenerateColumns = false;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -310,10 +274,13 @@
             this.categoryidDataGridViewTextBoxColumn,
             this.commentDataGridViewTextBoxColumn});
             this.dataGridView2.DataSource = this.testcBindingSource;
-            this.dataGridView2.Location = new System.Drawing.Point(287, 0);
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dataGridView2.Location = new System.Drawing.Point(302, 3);
+            this.dataGridView2.MinimumSize = new System.Drawing.Size(543, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(576, 232);
+            this.dataGridView2.ShowEditingIcon = false;
+            this.dataGridView2.Size = new System.Drawing.Size(576, 244);
             this.dataGridView2.TabIndex = 22;
             // 
             // idDataGridViewTextBoxColumn
@@ -414,18 +381,40 @@
             this.fambudgetDataSet1.Locale = new System.Globalization.CultureInfo("ru-RU");
             this.fambudgetDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 221);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "label7";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(9, 158);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(272, 30);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Управление категориями";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // FamilyBudget
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 300);
+            this.ClientSize = new System.Drawing.Size(889, 300);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(905, 0);
             this.Name = "FamilyBudget";
             this.Text = "FamilyBudget";
             this.Activated += new System.EventHandler(this.FamilyBudget_Activated);
             this.Load += new System.EventHandler(this.FamilyBudget_Load);
+            this.ResizeEnd += new System.EventHandler(this.FamilyBudget_ResizeEnd);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FamilyBudget_Paint);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -478,12 +467,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn summDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn summDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoryidDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn1;
         private fambudgetDataSet fambudgetDataSet1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button3;
     }
 }
 

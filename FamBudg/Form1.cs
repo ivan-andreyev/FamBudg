@@ -12,6 +12,9 @@ namespace FamBudg
 {
     public partial class FamilyBudget : Form
     {
+        public const string INCOME_QUERY_TYPE = "income"; // константа запроса на добавление дохода
+        public const string CONSUMPTION_QUERY_TYPE = "consumption"; // константа запроса на добавление расхода
+
         private BindingSource bs1 = new BindingSource();
         private BindingSource bs2 = new BindingSource();
         public bool inc = false;
@@ -40,7 +43,7 @@ namespace FamBudg
             double sum = Convert.ToDouble(textBox1.Text);
             int cat = Convert.ToInt32(comboBox1.Text);
             string comment = textBox2.Text;
-            if (checkInputs(false))
+            if (checkInputs(CONSUMPTION_QUERY_TYPE))
             {
                 ClientCommands.addСonsumption(sum, cat, comment); // добавить расход
                 refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
@@ -53,7 +56,7 @@ namespace FamBudg
             double sum = Convert.ToDouble(textBox4.Text);
             int cat = Convert.ToInt32(comboBox2.Text);
             string comment = textBox3.Text;
-            if (checkInputs(true))
+            if (checkInputs(INCOME_QUERY_TYPE))
             {
                 ClientCommands.addIncome(sum, cat, comment);
                 refreshGrids(tabControl1.TabPages.IndexOf(tabControl1.SelectedTab));
@@ -61,41 +64,48 @@ namespace FamBudg
             else MessageBox.Show("Ошибка входных данных"); // добавить доход
         }
 
-        public bool checkInputs(bool inc) // проверка правильности ввода
+        public bool checkInputs(string inc) // проверка правильности ввода
         {
             double d = new double();
             int i = new int();
             string s = "";
             bool isGood = true;
-            if (inc)
+            switch (inc)
             {
-                if (!Object.ReferenceEquals(d.GetType(), Convert.ToDouble(textBox4.Text).GetType())) /* можно ли привести к double */
-                {
+                case "income":
+                    if (!Object.ReferenceEquals(d.GetType(), Convert.ToDouble(textBox4.Text).GetType())) /* можно ли привести к double */
+                    {
+                        isGood = false;
+                    }
+                    if (!Object.ReferenceEquals(i.GetType(), Convert.ToInt32(comboBox2.Text).GetType())) /* можно ли привести к int */
+                    {
+                        isGood = false;
+                    }
+                    if (!Object.ReferenceEquals(s.GetType(), textBox3.Text.GetType())) /* можно ли привести к string */
+                    {
+                        isGood = false;
+                    }
+                    break;
+
+                case "consumption":
+                    if (!Object.ReferenceEquals(d.GetType(), Convert.ToDouble(textBox1.Text).GetType())) /* можно ли привести к double */
+                    {
+                        isGood = false;
+                    }
+                    if (!Object.ReferenceEquals(i.GetType(), Convert.ToInt32(comboBox1.Text).GetType())) /* можно ли привести к int */
+                    {
+                        isGood = false;
+                    }
+                    if (!Object.ReferenceEquals(s.GetType(), textBox2.Text.GetType())) /* можно ли привести к string */
+                    {
+                        isGood = false;
+                    }
+                    break;
+
+                default:
+                    MessageBox.Show("Wrong query type.");
                     isGood = false;
-                }
-                if (!Object.ReferenceEquals(i.GetType(), Convert.ToInt32(comboBox2.Text).GetType())) /* можно ли привести к int */
-                {
-                    isGood = false;
-                }
-                if (!Object.ReferenceEquals(s.GetType(), textBox3.Text.GetType())) /* можно ли привести к string */
-                {
-                    isGood = false;
-                }
-            }
-            else
-            {
-                if (!Object.ReferenceEquals(d.GetType(), Convert.ToDouble(textBox1.Text).GetType())) /* можно ли привести к double */
-                {
-                    isGood = false;
-                }
-                if (!Object.ReferenceEquals(i.GetType(), Convert.ToInt32(comboBox1.Text).GetType())) /* можно ли привести к int */
-                {
-                    isGood = false;
-                }
-                if (!Object.ReferenceEquals(s.GetType(), textBox2.Text.GetType())) /* можно ли привести к string */
-                {
-                    isGood = false;
-                }
+                    break;
             }
             return isGood;
         }
@@ -103,7 +113,7 @@ namespace FamBudg
 
         void refreshGrids(int n)
         {
-            MessageBox.Show(n.ToString());
+            //MessageBox.Show(n.ToString());
             switch (n)
             {
                 case 0:
@@ -168,6 +178,25 @@ namespace FamBudg
         private void textBox3_Enter(object sender, EventArgs e)
         {
             textBox3.SelectAll();
+        }
+
+        private void FamilyBudget_ResizeEnd(object sender, EventArgs e)
+        {
+            //this.Size.Width
+            dataGridView1.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
+            dataGridView2.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
+        }
+
+        private void FamilyBudget_Paint(object sender, PaintEventArgs e)
+        {
+            label7.Text = "Form Width: " + this.Size.Width.ToString() + " DataGrid Width: " + dataGridView1.Width.ToString();
+            dataGridView1.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
+            dataGridView2.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // edit categories;
         }
     }
 }

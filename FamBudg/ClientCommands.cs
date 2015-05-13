@@ -15,7 +15,7 @@ namespace FamBudg
         public static bool sendRequest(string some_request = "") // послать запрос
         {
             /*donothing*/
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             return false;
         }
 
