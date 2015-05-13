@@ -35,25 +35,22 @@
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.consumption = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.testcBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.fambudgetDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.fambudgetDataSet = new FamBudg.fambudgetDataSet();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.testcBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.fambudgetDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.fambudgetDataSet = new FamBudg.fambudgetDataSet();
             this.income = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.summDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -62,8 +59,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.testcTableAdapter = new FamBudg.fambudgetDataSetTableAdapters.testcTableAdapter();
             this.fambudgetDataSet1 = new FamBudg.fambudgetDataSet();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.consumption.SuspendLayout();
@@ -107,6 +103,7 @@
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.настройкиToolStripMenuItem.Text = "Настройки";
+            this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -140,6 +137,26 @@
             this.consumption.Text = "Расход";
             this.consumption.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(9, 158);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(272, 30);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Управление категориями";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 221);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "label7";
+            this.label7.Visible = false;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(9, 124);
@@ -163,22 +180,6 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(576, 244);
             this.dataGridView1.TabIndex = 14;
-            // 
-            // testcBindingSource
-            // 
-            this.testcBindingSource.DataMember = "testc";
-            this.testcBindingSource.DataSource = this.fambudgetDataSetBindingSource;
-            // 
-            // fambudgetDataSetBindingSource
-            // 
-            this.fambudgetDataSetBindingSource.DataSource = this.fambudgetDataSet;
-            this.fambudgetDataSetBindingSource.Position = 0;
-            // 
-            // fambudgetDataSet
-            // 
-            this.fambudgetDataSet.DataSetName = "fambudgetDataSet";
-            this.fambudgetDataSet.Locale = new System.Globalization.CultureInfo("ru-RU");
-            this.fambudgetDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label3
             // 
@@ -234,8 +235,25 @@
             this.comboBox1.TabIndex = 8;
             this.comboBox1.Enter += new System.EventHandler(this.comboBox1_Enter);
             // 
+            // testcBindingSource
+            // 
+            this.testcBindingSource.DataMember = "testc";
+            this.testcBindingSource.DataSource = this.fambudgetDataSetBindingSource;
+            // 
+            // fambudgetDataSetBindingSource
+            // 
+            this.fambudgetDataSetBindingSource.DataSource = this.fambudgetDataSet;
+            this.fambudgetDataSetBindingSource.Position = 0;
+            // 
+            // fambudgetDataSet
+            // 
+            this.fambudgetDataSet.DataSetName = "fambudgetDataSet";
+            this.fambudgetDataSet.Locale = new System.Globalization.CultureInfo("ru-RU");
+            this.fambudgetDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // income
             // 
+            this.income.Controls.Add(this.button4);
             this.income.Controls.Add(this.button2);
             this.income.Controls.Add(this.dataGridView2);
             this.income.Controls.Add(this.label4);
@@ -266,15 +284,7 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AutoGenerateColumns = false;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.dateDataGridViewTextBoxColumn,
-            this.summDataGridViewTextBoxColumn,
-            this.categoryidDataGridViewTextBoxColumn,
-            this.commentDataGridViewTextBoxColumn});
-            this.dataGridView2.DataSource = this.testcBindingSource;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Right;
             this.dataGridView2.Location = new System.Drawing.Point(302, 3);
             this.dataGridView2.MinimumSize = new System.Drawing.Size(543, 0);
@@ -283,41 +293,6 @@
             this.dataGridView2.ShowEditingIcon = false;
             this.dataGridView2.Size = new System.Drawing.Size(576, 244);
             this.dataGridView2.TabIndex = 22;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // summDataGridViewTextBoxColumn
-            // 
-            this.summDataGridViewTextBoxColumn.DataPropertyName = "summ";
-            this.summDataGridViewTextBoxColumn.HeaderText = "summ";
-            this.summDataGridViewTextBoxColumn.Name = "summDataGridViewTextBoxColumn";
-            this.summDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // categoryidDataGridViewTextBoxColumn
-            // 
-            this.categoryidDataGridViewTextBoxColumn.DataPropertyName = "category_id";
-            this.categoryidDataGridViewTextBoxColumn.HeaderText = "category_id";
-            this.categoryidDataGridViewTextBoxColumn.Name = "categoryidDataGridViewTextBoxColumn";
-            this.categoryidDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // commentDataGridViewTextBoxColumn
-            // 
-            this.commentDataGridViewTextBoxColumn.DataPropertyName = "comment";
-            this.commentDataGridViewTextBoxColumn.HeaderText = "comment";
-            this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
-            this.commentDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // label4
             // 
@@ -382,24 +357,15 @@
             this.fambudgetDataSet1.Locale = new System.Globalization.CultureInfo("ru-RU");
             this.fambudgetDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // label7
+            // button4
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(28, 221);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "label7";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(9, 158);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(272, 30);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Управление категориями";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button4.Location = new System.Drawing.Point(9, 158);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(272, 30);
+            this.button4.TabIndex = 24;
+            this.button4.Text = "Управление категориями";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // FamilyBudget
             // 
@@ -409,7 +375,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(905, 0);
+            this.MinimumSize = new System.Drawing.Size(905, 38);
             this.Name = "FamilyBudget";
             this.Text = "FamilyBudget";
             this.Activated += new System.EventHandler(this.FamilyBudget_Activated);
@@ -463,14 +429,10 @@
         private fambudgetDataSet fambudgetDataSet;
         private System.Windows.Forms.BindingSource testcBindingSource;
         private fambudgetDataSetTableAdapters.testcTableAdapter testcTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn summDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoryidDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
         private fambudgetDataSet fambudgetDataSet1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }
 

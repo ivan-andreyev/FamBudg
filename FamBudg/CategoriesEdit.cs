@@ -13,9 +13,10 @@ namespace FamBudg
     public partial class CategoriesEdit : Form
     {
         BindingSource bs = new BindingSource();
-
-        public CategoriesEdit()
+        string nameField;
+        public CategoriesEdit(FamilyBudget f)
         {
+            nameField = f.nameField;
             InitializeComponent();
             refreshCategoriesGrid();
         }
@@ -28,8 +29,14 @@ namespace FamBudg
 
         void refreshCategoriesGrid()
         {
-            bs = ClientCommands.refreshCategories();
+            bs = ClientCommands.refreshCategories(nameField);
             dataGridView1.DataSource = bs.DataSource;
+        }
+
+        private void CategoriesEdit_Paint(object sender, PaintEventArgs e)
+        {
+            //label3.Text = "Form Width: " + this.Size.Width.ToString() + " DataGrid Width: " + dataGridView1.Width.ToString();
+            dataGridView1.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.5);
         }
     }
 }

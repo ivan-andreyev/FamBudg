@@ -19,6 +19,7 @@ namespace FamBudg
         private BindingSource bs2 = new BindingSource();
         public BindingSource bs3 = new BindingSource();
 
+        public string nameField = "Имя категории";
         public bool inc = false;
 
         // проверка на авторизованность в программе
@@ -82,7 +83,7 @@ namespace FamBudg
                     {
                         isGood = false;
                     }
-                    if (!Object.ReferenceEquals(i.GetType(), Convert.ToInt32(comboBox2.Text).GetType())) /* можно ли привести к int */
+                    if (!Object.ReferenceEquals(s.GetType(), comboBox2.Text.GetType())) /* можно ли привести к string */
                     {
                         isGood = false;
                     }
@@ -97,7 +98,7 @@ namespace FamBudg
                     {
                         isGood = false;
                     }
-                    if (!Object.ReferenceEquals(i.GetType(), Convert.ToInt32(comboBox1.Text).GetType())) /* можно ли привести к int */
+                    if (!Object.ReferenceEquals(s.GetType(), comboBox1.Text.GetType())) /* можно ли привести к string */
                     {
                         isGood = false;
                     }
@@ -108,7 +109,7 @@ namespace FamBudg
                     break;
 
                 default:
-                    MessageBox.Show("Wrong query type.");
+                    MessageBox.Show("Неправильный тип запроса.");
                     isGood = false;
                     break;
             }
@@ -122,7 +123,6 @@ namespace FamBudg
             switch (n)
             {
                 case 0:
-                    
                     bs1 = ClientCommands.refreshCosts();
                     dataGridView1.DataSource = bs1.DataSource;
                     break;
@@ -131,19 +131,19 @@ namespace FamBudg
                     dataGridView2.DataSource = bs2.DataSource;
                     break;
                 default:
-                    bs1 = ClientCommands.refreshCosts();
-                    dataGridView1.DataSource = bs1.DataSource;
                     bs2 = ClientCommands.refreshIncomes();
                     dataGridView2.DataSource = bs2.DataSource;
+                    bs1 = ClientCommands.refreshCosts();
+                    dataGridView1.DataSource = bs1.DataSource;
                     break;
             }
         }
 
         public void refreshCategories()
         {
-            bs3 = ClientCommands.refreshCategories();
+            bs3 = ClientCommands.refreshCategories(nameField);
             comboBox1.DataSource = comboBox2.DataSource = bs3.DataSource;
-            comboBox1.DisplayMember = comboBox2.DisplayMember = "name";
+            comboBox1.DisplayMember = comboBox2.DisplayMember = nameField;
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -203,7 +203,7 @@ namespace FamBudg
         private void FamilyBudget_Paint(object sender, PaintEventArgs e)
         {
             // при отрисовке формы, масштабируем dataGridView
-            label7.Text = "Form Width: " + this.Size.Width.ToString() + " DataGrid Width: " + dataGridView1.Width.ToString();
+            //label7.Text = "Form Width: " + this.Size.Width.ToString() + " DataGrid Width: " + dataGridView1.Width.ToString();
             dataGridView1.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
             dataGridView2.Width = Convert.ToInt32(Convert.ToDouble(this.Size.Width) * 0.6);
         }
@@ -211,7 +211,21 @@ namespace FamBudg
         private void button3_Click(object sender, EventArgs e)
         {
             // edit categories;
-            CategoriesEdit f = new CategoriesEdit();
+            CategoriesEdit f = new CategoriesEdit(this);
+            f.ShowDialog();
+            refreshCategories();
+        }
+
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Options o = new Options(this);
+            o.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // edit categories;
+            CategoriesEdit f = new CategoriesEdit(this);
             f.ShowDialog();
             refreshCategories();
         }

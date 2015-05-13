@@ -11,7 +11,7 @@ namespace FamBudg
 {
     class ClientCommands
     {
-        public static string connectionString = "Server=mysql87.1gb.ru;Database=gb_fam_budget;Uid=gb_fam_budget; Pwd=c122ac54nm;Convert Zero Datetime=True";
+        public static string connectionString = "Server=mysql87.1gb.ru;Database=gb_fam_budget;Uid=gb_fam_budget; Pwd=c122ac54nm;Convert Zero Datetime=True;CharSet=utf8;";
         public static bool sendRequest(string some_request = "") // послать запрос
         {
             /*donothing*/
@@ -19,7 +19,7 @@ namespace FamBudg
             return false;
         }
 
-        public static bool addСonsumption(double sum, string category_id, string comment, string some_request = "") // добавить расход
+        public static bool addСonsumption(double sum, string category, string comment, string some_request = "") // добавить расход
         {
             /* ВЫЗОВ ХРАНИМОЙ ПРОЦЕДУРЫ */
             //Initialize mysql connection
@@ -27,12 +27,12 @@ namespace FamBudg
             MySqlConnection connection = new MySqlConnection(connectionString);
 
             /* REQUEST */
-            string CommandText = "INSERT INTO costs (summ, category_id, comment) VALUES (@sum, @cat, @comment)";
+            string CommandText = "INSERT INTO costs (summ, category_id, comment) VALUES (@sum, (SELECT id FROM categories WHERE name = @cat), @comment)";
 
             MySqlCommand insCommand = new MySqlCommand(CommandText, connection);
             connection.Open(); //Устанавливаем соединение с базой данных.
             insCommand.Parameters.AddWithValue("@sum", sum);
-            insCommand.Parameters.AddWithValue("@cat", category_id);
+            insCommand.Parameters.AddWithValue("@cat", category);
             insCommand.Parameters.AddWithValue("@comment", comment);
             try
             {
@@ -52,7 +52,7 @@ namespace FamBudg
             return false;
         }
 
-        public static bool addIncome(double sum, string category_id, string comment, string some_request = "") // добавить расход
+        public static bool addIncome(double sum, string category, string comment, string some_request = "") // добавить расход
         {
             /* будет ВЫЗОВ ХРАНИМОЙ ПРОЦЕДУРЫ */
             /* а пока, выполнение запроса */
@@ -61,12 +61,12 @@ namespace FamBudg
             MySqlConnection connection = new MySqlConnection(connectionString);
 
             /* REQUEST */
-            string CommandText = "INSERT INTO income (summ, category_id, comment) VALUES (@sum, @cat, @comment)";
+            string CommandText = "INSERT INTO income (summ, category_id, comment) VALUES (@sum, (SELECT id FROM categories WHERE name = @cat), @comment)";
 
             MySqlCommand insCommand = new MySqlCommand(CommandText, connection);
             connection.Open(); //Устанавливаем соединение с базой данных.
             insCommand.Parameters.AddWithValue("@sum", sum);
-            insCommand.Parameters.AddWithValue("@cat", category_id);
+            insCommand.Parameters.AddWithValue("@cat", category);
             insCommand.Parameters.AddWithValue("@comment", comment);
             try
             {
@@ -115,7 +115,6 @@ namespace FamBudg
             {
                 if (connection.State == System.Data.ConnectionState.Open)
                 {
-                    MessageBox.Show("Закрываем открытое соединение");
                     connection.Close(); //Обязательно закрываем соединение!
                 }
             }
@@ -124,30 +123,12 @@ namespace FamBudg
             return false;
         }
 
-        public static BindingSource refreshCosts()
-            {
-                MySqlConnection connection = new MySqlConnection(connectionString);
-                /* REQUEST */
-                string CommandText = "SELECT * FROM costs";
-
-                MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
-                connection.Open(); //Устанавливаем соединение с базой данных.
-                //MySql.Data.MySqlClient.MySqlDataReader reader = selCommand.ExecuteReader();
-                System.Data.DataTable tab = new System.Data.DataTable();
-                tab.Load(selCommand.ExecuteReader());
-                BindingSource bs = new BindingSource();
-                bs.DataSource = tab.DefaultView;
-
-                connection.Close();
-                return bs;
-            }
-
 
             public static BindingSource refreshIncomes()
             {
                 MySqlConnection connection = new MySqlConnection(connectionString);
                 /* REQUEST */
-                string CommandText = "SELECT * FROM income";
+                string CommandText = "SELECT i.id as Номер, i.date as Дата, i.summ as Сумма, ca.name as 'Категория', i.comment as Комментарий FROM income i, categories ca WHERE i.category_id = ca.id";
 
                 MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
                 connection.Open(); //Устанавливаем соединение с базой данных.
@@ -161,11 +142,30 @@ namespace FamBudg
                 return bs;
             }
 
-        public static BindingSource refreshCategories()
+            public static BindingSource refreshCosts()
             {
                 MySqlConnection connection = new MySqlConnection(connectionString);
                 /* REQUEST */
-                string CommandText = "SELECT * FROM categories";
+                string CommandText = "SELECT c.id as Номер, c.date as Дата, c.summ as Сумма, ca.name as 'Категория', c.comment as Комментарий FROM costs c, categories ca WHERE c.category_id = ca.id";
+
+                MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
+                connection.Open(); //Устанавливаем соединение с базой данных.
+                //MySql.Data.MySqlClient.MySqlDataReader reader = selCommand.ExecuteReader();
+                System.Data.DataTable tab = new System.Data.DataTable(); // инициализируем пустую таблицу под извлекаемые из БД данные
+                tab.Load(selCommand.ExecuteReader()); // выполняем запрос и загружаем результат в таблицу
+                BindingSource bs = new BindingSource(); // инициализируем источник данных
+                bs.DataSource = tab.DefaultView; // заполняем данными выборки
+
+                connection.Close(); // закрываем соединение
+                return bs; // возвращаем данные из метода
+            }
+
+
+        public static BindingSource refreshCategories(string name)
+            {
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                /* REQUEST */
+                string CommandText = "SELECT id as Номер, name as '" + name + "', descr as Описание FROM categories";
 
                 MySqlCommand selCommand = new MySqlCommand(CommandText, connection);
                 connection.Open(); //Устанавливаем соединение с базой данных.
@@ -174,7 +174,6 @@ namespace FamBudg
                 tab.Load(selCommand.ExecuteReader());
                 BindingSource bs = new BindingSource();
                 bs.DataSource = tab.DefaultView;
-
                 connection.Close();
                 return bs;
             }
